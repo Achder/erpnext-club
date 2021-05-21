@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "creation": "2021-05-16 23:44:11.700707",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "event_name",
+  "sec_basics",
+  "start",
+  "end",
+  "gross_a_start",
+  "entrances",
+  "sec_promo",
+  "image",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "event_name",
+   "fieldtype": "Data",
+   "label": "Event name"
+  },
+  {
+   "fieldname": "sec_basics",
+   "fieldtype": "Section Break",
+   "label": "Basics"
+  },
+  {
+   "fieldname": "start",
+   "fieldtype": "Datetime",
+   "label": "Start"
+  },
+  {
+   "fieldname": "end",
+   "fieldtype": "Datetime",
+   "label": "End"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_promo",
+   "fieldtype": "Section Break",
+   "label": "Promo"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "entrances",
+   "fieldtype": "Table",
+   "label": "Entrances",
+   "options": "Entrance"
+  },
+  {
+   "fieldname": "gross_a_start",
+   "fieldtype": "Datetime",
+   "label": "Gro\u00df A"
+  }
+ ],
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Shift",
+   "link_fieldname": "event"
+  },
+  {
+   "link_doctype": "Guestlist",
+   "link_fieldname": "event"
+  }
+ ],
+ "modified": "2021-05-18 19:40:56.842994",
+ "modified_by": "Administrator",
+ "module": "Club",
+ "name": "Club Event",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "event_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "event_name",
+ "track_changes": 1
+}
