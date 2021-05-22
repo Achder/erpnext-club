@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "start",
-  "price"
+  "price",
+  "nb_of_guests"
  ],
  "fields": [
   {
@@ -20,12 +21,18 @@
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Price"
+  },
+  {
+   "fieldname": "nb_of_guests",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "# of Guests"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-05-16 23:50:50.328790",
+ "modified": "2021-05-22 17:53:08.248841",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Entrance",

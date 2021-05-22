@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "format:{#####}-{job}-{start}",
  "creation": "2021-05-16 23:40:26.037792",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -9,23 +10,30 @@
   "start",
   "end",
   "employee",
-  "event"
+  "event",
+  "purchase_order"
  ],
  "fields": [
   {
    "fieldname": "job",
    "fieldtype": "Data",
-   "label": "Job"
+   "in_list_view": 1,
+   "label": "Job",
+   "reqd": 1
   },
   {
    "fieldname": "start",
    "fieldtype": "Datetime",
-   "label": "Start"
+   "in_list_view": 1,
+   "label": "Start",
+   "reqd": 1
   },
   {
    "fieldname": "end",
    "fieldtype": "Datetime",
-   "label": "End"
+   "in_list_view": 1,
+   "label": "End",
+   "reqd": 1
   },
   {
    "fieldname": "employee",
@@ -35,13 +43,21 @@
   {
    "fieldname": "event",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Event",
-   "options": "Club Event"
+   "options": "Club Event",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-05-16 23:44:57.067848",
+ "modified": "2021-05-22 21:35:51.154217",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Shift",
@@ -60,7 +76,9 @@
    "write": 1
   }
  ],
+ "search_fields": "job",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "job",
  "track_changes": 1
 }

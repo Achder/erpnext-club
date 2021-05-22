@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "autoname": "field:artist",
+ "creation": "2021-05-22 22:03:44.607624",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "artist",
+  "costs",
+  "event",
+  "purchase_order"
+ ],
+ "fields": [
+  {
+   "fieldname": "artist",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Artist",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "costs",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Costs",
+   "reqd": 1
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "Club Event",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-05-22 22:09:03.764415",
+ "modified_by": "Administrator",
+ "module": "Club",
+ "name": "Booking",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,15 +1,18 @@
 {
  "actions": [],
+ "autoname": "format:{start}-{event_name}",
  "creation": "2021-05-16 23:44:11.700707",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "event_name",
-  "sec_basics",
+  "event_type",
+  "sec_opening_hours",
   "start",
   "end",
-  "gross_a_start",
+  "areas",
+  "entrance_section",
   "entrances",
   "sec_promo",
   "image",
@@ -20,11 +23,6 @@
    "fieldname": "event_name",
    "fieldtype": "Data",
    "label": "Event name"
-  },
-  {
-   "fieldname": "sec_basics",
-   "fieldtype": "Section Break",
-   "label": "Basics"
   },
   {
    "fieldname": "start",
@@ -55,13 +53,33 @@
   {
    "fieldname": "entrances",
    "fieldtype": "Table",
-   "label": "Entrances",
+   "label": "Entrance  - Prices and Attendance",
    "options": "Entrance"
   },
   {
-   "fieldname": "gross_a_start",
-   "fieldtype": "Datetime",
-   "label": "Gro\u00df A"
+   "fieldname": "areas",
+   "fieldtype": "Table",
+   "label": "Areas",
+   "options": "Area Openings"
+  },
+  {
+   "collapsible": 1,
+   "columns": 2,
+   "fieldname": "sec_opening_hours",
+   "fieldtype": "Section Break",
+   "label": "Openings hours"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "entrance_section",
+   "fieldtype": "Section Break",
+   "label": "Entrance"
+  },
+  {
+   "fieldname": "event_type",
+   "fieldtype": "Link",
+   "label": "Event type",
+   "options": "Club Event Type"
   }
  ],
  "image_field": "image",
@@ -72,11 +90,15 @@
    "link_fieldname": "event"
   },
   {
+   "link_doctype": "Booking",
+   "link_fieldname": "event"
+  },
+  {
    "link_doctype": "Guestlist",
    "link_fieldname": "event"
   }
  ],
- "modified": "2021-05-18 19:40:56.842994",
+ "modified": "2021-05-22 22:11:18.432128",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Club Event",
