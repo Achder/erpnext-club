@@ -1,15 +1,13 @@
 {
  "actions": [],
- "autoname": "field:artist",
- "creation": "2021-05-22 22:03:44.607624",
+ "creation": "2021-05-22 22:33:47.116894",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "artist",
   "costs",
-  "event",
-  "purchase_order"
+  "event"
  ],
  "fields": [
   {
@@ -17,8 +15,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Artist",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "costs",
@@ -31,25 +28,33 @@
    "fieldname": "event",
    "fieldtype": "Link",
    "label": "Event",
-   "options": "Club Event",
-   "reqd": 1
-  },
-  {
-   "fieldname": "purchase_order",
-   "fieldtype": "Link",
-   "label": "Purchase Order",
-   "options": "Purchase Order"
+   "options": "Club Event"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-05-22 22:09:03.764415",
+ "modified": "2021-05-22 22:34:09.750525",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Booking",
  "owner": "Administrator",
- "permissions": [],
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "artist",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "artist",
  "track_changes": 1
 }
