@@ -1,5 +1,11 @@
 {
- "actions": [],
+ "actions": [
+  {
+   "action": "club.club.doctype.club_event.club_event.create_purchase_orders",
+   "action_type": "Server Action",
+   "label": "Create POs"
+  }
+ ],
  "autoname": "format:{start}-{event_name}",
  "creation": "2021-05-16 23:44:11.700707",
  "doctype": "DocType",
@@ -98,7 +104,7 @@
    "link_fieldname": "event"
   }
  ],
- "modified": "2021-05-22 22:35:39.431216",
+ "modified": "2021-05-23 15:06:17.093216",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Club Event",
