@@ -5,35 +5,113 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "sec_setting",
+  "include_booker",
+  "include_hotel",
+  "column_break_4",
+  "sec_costs",
   "artist",
-  "costs",
+  "booker",
+  "hotel",
+  "column_break_9",
+  "artist_fee",
+  "booking_fee",
+  "hotel_fee",
+  "sec_links",
   "event"
  ],
  "fields": [
   {
    "fieldname": "artist",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Artist",
-   "reqd": 1
-  },
-  {
-   "fieldname": "costs",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Costs",
+   "options": "Supplier",
    "reqd": 1
   },
   {
    "fieldname": "event",
    "fieldtype": "Link",
    "label": "Event",
-   "options": "Club Event"
+   "options": "Club Event",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.include_booker",
+   "fieldname": "booking_fee",
+   "fieldtype": "Currency",
+   "label": "Booking Fee",
+   "mandatory_depends_on": "eval:doc.include_booker"
+  },
+  {
+   "default": "1",
+   "fieldname": "include_booker",
+   "fieldtype": "Check",
+   "label": "Include Booker"
+  },
+  {
+   "depends_on": "eval:doc.include_booker",
+   "fieldname": "booker",
+   "fieldtype": "Link",
+   "label": "Booker",
+   "mandatory_depends_on": "eval:doc.include_booker",
+   "options": "Supplier"
+  },
+  {
+   "default": "1",
+   "fieldname": "include_hotel",
+   "fieldtype": "Check",
+   "label": "Include Hotel"
+  },
+  {
+   "depends_on": "eval:doc.include_hotel",
+   "fieldname": "hotel",
+   "fieldtype": "Link",
+   "label": "Hotel",
+   "mandatory_depends_on": "eval:doc.include_hotel",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "sec_links",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "fieldname": "sec_setting",
+   "fieldtype": "Section Break",
+   "label": "Settings"
+  },
+  {
+   "fieldname": "sec_costs",
+   "fieldtype": "Section Break",
+   "label": "Costs"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "artist_fee",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Artist Fee",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.include_hotel",
+   "fieldname": "hotel_fee",
+   "fieldtype": "Currency",
+   "label": "Hotel Fee",
+   "mandatory_depends_on": "eval:doc.include_hotel"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-05-22 22:34:09.750525",
+ "modified": "2021-07-27 21:38:31.004821",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Booking",

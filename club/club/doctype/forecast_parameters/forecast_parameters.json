@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "autoname": "field:forecast_name",
+ "creation": "2021-06-07 19:31:00.408587",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "forecast_name",
+  "sec_booking",
+  "booking_factor",
+  "sec_venue_costs",
+  "price_electricity",
+  "price_water",
+  "price_gasoline",
+  "include_heating",
+  "price_garbage_disposal",
+  "price_gema",
+  "price_consumables",
+  "sec_bar",
+  "bar_per_capita",
+  "margin"
+ ],
+ "fields": [
+  {
+   "fieldname": "forecast_name",
+   "fieldtype": "Data",
+   "label": "Forecast Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "sec_booking",
+   "fieldtype": "Section Break",
+   "label": "Booking"
+  },
+  {
+   "fieldname": "booking_factor",
+   "fieldtype": "Float",
+   "label": "Booking Factor"
+  },
+  {
+   "fieldname": "sec_venue_costs",
+   "fieldtype": "Section Break",
+   "label": "Venue Costs"
+  },
+  {
+   "default": "0",
+   "fieldname": "include_heating",
+   "fieldtype": "Check",
+   "label": "Include Heating"
+  },
+  {
+   "fieldname": "sec_bar",
+   "fieldtype": "Section Break",
+   "label": "Bar"
+  },
+  {
+   "fieldname": "bar_per_capita",
+   "fieldtype": "Currency",
+   "label": "Bar per Capita [\u20ac]"
+  },
+  {
+   "fieldname": "margin",
+   "fieldtype": "Float",
+   "label": "Margin"
+  },
+  {
+   "fieldname": "price_electricity",
+   "fieldtype": "Currency",
+   "label": "Electricity [\u20ac/kWh]"
+  },
+  {
+   "fieldname": "price_water",
+   "fieldtype": "Currency",
+   "label": "Water [\u20ac/m\u00b3]"
+  },
+  {
+   "fieldname": "price_gasoline",
+   "fieldtype": "Currency",
+   "label": "Gasoline [\u20ac/l]"
+  },
+  {
+   "fieldname": "price_garbage_disposal",
+   "fieldtype": "Currency",
+   "label": "Garbage Disposal [\u20ac]"
+  },
+  {
+   "fieldname": "price_gema",
+   "fieldtype": "Currency",
+   "label": "Gema [\u20ac]"
+  },
+  {
+   "fieldname": "price_consumables",
+   "fieldtype": "Currency",
+   "label": "Consumables [\u20ac]"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-06-30 21:59:06.043398",
+ "modified_by": "Administrator",
+ "module": "Club",
+ "name": "Forecast Parameters",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "forecast_name",
+ "track_changes": 1
+}

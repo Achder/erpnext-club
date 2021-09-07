@@ -6,19 +6,26 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "sec_job",
   "job",
   "start",
   "end",
-  "employee",
+  "sec_worker",
+  "worker_type",
+  "sends_invoice",
+  "column_break_8",
+  "worker",
+  "sec_links",
   "event",
-  "purchase_order"
+  "template"
  ],
  "fields": [
   {
    "fieldname": "job",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Job",
+   "options": "Item",
    "reqd": 1
   },
   {
@@ -36,28 +43,63 @@
    "reqd": 1
   },
   {
-   "fieldname": "employee",
-   "fieldtype": "Data",
-   "label": "Employee"
-  },
-  {
    "fieldname": "event",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Event",
-   "options": "Club Event",
+   "options": "Club Event"
+  },
+  {
+   "default": "Supplier",
+   "fieldname": "worker_type",
+   "fieldtype": "Link",
+   "label": "Type of Worker",
+   "options": "DocType",
    "reqd": 1
   },
   {
-   "fieldname": "purchase_order",
+   "fieldname": "worker",
+   "fieldtype": "Dynamic Link",
+   "label": "Worker",
+   "options": "worker_type",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.worker_type === 'Supplier'",
+   "fieldname": "sends_invoice",
+   "fieldtype": "Check",
+   "label": "Sends Invoice"
+  },
+  {
+   "fieldname": "sec_job",
+   "fieldtype": "Section Break",
+   "label": "Job"
+  },
+  {
+   "fieldname": "sec_worker",
+   "fieldtype": "Section Break",
+   "label": "Worker"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sec_links",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "fieldname": "template",
    "fieldtype": "Link",
-   "label": "Purchase Order",
-   "options": "Purchase Order"
+   "label": "Template",
+   "options": "Shift Template"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-05-22 21:35:51.154217",
+ "modified": "2021-07-27 21:36:35.210243",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Shift",

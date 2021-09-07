@@ -1,52 +1,41 @@
 {
  "actions": [],
- "autoname": "field:area_name",
- "creation": "2021-05-22 07:29:58.958583",
+ "creation": "2021-06-30 15:56:11.980500",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "area_name",
-  "kwh"
+  "forecast_parameters"
  ],
  "fields": [
   {
-   "fieldname": "area_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Area Name",
-   "unique": 1
-  },
-  {
-   "fieldname": "kwh",
-   "fieldtype": "Float",
-   "label": "kWh"
+   "fieldname": "forecast_parameters",
+   "fieldtype": "Link",
+   "label": "Forecast Parameters",
+   "options": "Forecast Parameters"
   }
  ],
  "index_web_pages_for_search": 1,
+ "issingle": 1,
  "links": [],
- "modified": "2021-06-30 21:28:42.391998",
+ "modified": "2021-06-30 15:56:11.980500",
  "modified_by": "Administrator",
  "module": "Club",
- "name": "Area",
+ "name": "Default Forecast Parameters",
  "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
    "delete": 1,
    "email": 1,
-   "export": 1,
    "print": 1,
    "read": 1,
-   "report": 1,
    "role": "System Manager",
    "share": 1,
    "write": 1
   }
  ],
- "search_fields": "area_name",
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "area_name",
  "track_changes": 1
 }

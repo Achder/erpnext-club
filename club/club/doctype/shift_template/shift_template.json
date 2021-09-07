@@ -1,34 +1,32 @@
 {
  "actions": [],
- "autoname": "field:area_name",
- "creation": "2021-05-22 07:29:58.958583",
+ "autoname": "field:template_name",
+ "creation": "2021-06-16 17:52:52.565442",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "area_name",
-  "kwh"
+  "template_name"
  ],
  "fields": [
   {
-   "fieldname": "area_name",
+   "fieldname": "template_name",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Area Name",
+   "label": "Template Name",
    "unique": 1
-  },
-  {
-   "fieldname": "kwh",
-   "fieldtype": "Float",
-   "label": "kWh"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2021-06-30 21:28:42.391998",
+ "links": [
+  {
+   "link_doctype": "Shift",
+   "link_fieldname": "template"
+  }
+ ],
+ "modified": "2021-06-29 19:48:12.697770",
  "modified_by": "Administrator",
  "module": "Club",
- "name": "Area",
+ "name": "Shift Template",
  "owner": "Administrator",
  "permissions": [
   {
@@ -44,9 +42,8 @@
    "write": 1
   }
  ],
- "search_fields": "area_name",
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "area_name",
+ "title_field": "template_name",
  "track_changes": 1
 }

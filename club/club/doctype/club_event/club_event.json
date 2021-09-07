@@ -3,7 +3,14 @@
   {
    "action": "club.club.doctype.club_event.club_event.create_purchase_orders",
    "action_type": "Server Action",
-   "label": "Create POs"
+   "group": "Create",
+   "label": "Shift Orders"
+  },
+  {
+   "action": "club.club.doctype.club_event.club_event.create_sales_orders",
+   "action_type": "Server Action",
+   "group": "Create",
+   "label": "Entrance Orders"
   }
  ],
  "autoname": "format:{start}-{event_name}",
@@ -12,6 +19,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "status",
   "event_name",
   "event_type",
   "sec_opening_hours",
@@ -20,25 +28,81 @@
   "areas",
   "entrance_section",
   "entrances",
+  "entrance_purchase_order",
   "sec_promo",
   "image",
-  "description"
+  "description",
+  "sec_forecast_inputs",
+  "forecast_head_user",
+  "forecast_estimated_guests",
+  "column_break_18",
+  "forecast_head_parameters",
+  "forecast_load_parameter_template",
+  "forecast_booking_factor",
+  "forecast_bar_per_capita",
+  "forecast_margin",
+  "forecast_include_heating",
+  "shifts_column",
+  "forecast_head_shifts",
+  "forecast_use_shift_plan",
+  "forecast_shift_template",
+  "sec_forecast",
+  "forecast_head_data",
+  "forecast_effective_entrance",
+  "forecast_break_even",
+  "column_break_20",
+  "forecast_head_costs",
+  "forecast_costs_booking",
+  "forecast_costs_venue",
+  "forecast_costs_staff",
+  "forecast_costs_drinks",
+  "column_break_25",
+  "forecast_head_revenue",
+  "forecast_revenue_entrance",
+  "forecast_revenue_bar",
+  "forecast_column_break_29",
+  "forecast_head_balance",
+  "forecast_balance_costs",
+  "forecast_balance_revenues",
+  "forecast_balance_total",
+  "sec_balance",
+  "balance_head_data",
+  "balance_bar_per_capita",
+  "column_break_48",
+  "balance_head_costs",
+  "balance_costs_booking",
+  "balance_costs_drinks",
+  "balance_costs_staff",
+  "column_break_54",
+  "balance_head_revenue",
+  "balance_revenue_entrance",
+  "balance_revenue_bar",
+  "column_break_58",
+  "balance_head_balance",
+  "balance_costs",
+  "balance_revenue",
+  "balance_total"
  ],
  "fields": [
   {
    "fieldname": "event_name",
    "fieldtype": "Data",
-   "label": "Event name"
+   "label": "Event Name",
+   "reqd": 1
   },
   {
    "fieldname": "start",
    "fieldtype": "Datetime",
-   "label": "Start"
+   "in_list_view": 1,
+   "label": "Start",
+   "reqd": 1
   },
   {
    "fieldname": "end",
    "fieldtype": "Datetime",
-   "label": "End"
+   "in_list_view": 1,
+   "label": "End",
+   "reqd": 1
   },
   {
    "collapsible": 1,
@@ -60,7 +124,8 @@
    "fieldname": "entrances",
    "fieldtype": "Table",
    "label": "Entrance  - Prices and Attendance",
-   "options": "Entrance"
+   "options": "Entrance",
+   "reqd": 1
   },
   {
    "fieldname": "areas",
@@ -73,7 +138,7 @@
    "columns": 2,
    "fieldname": "sec_opening_hours",
    "fieldtype": "Section Break",
-   "label": "Openings hours"
+   "label": "Openings Hours"
   },
   {
    "collapsible": 1,
@@ -84,27 +149,347 @@
   {
    "fieldname": "event_type",
    "fieldtype": "Link",
-   "label": "Event type",
-   "options": "Club Event Type"
+   "label": "Event Type",
+   "options": "Club Event Type",
+   "reqd": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_forecast",
+   "fieldtype": "Section Break",
+   "label": "Forecast",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "balance_total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_forecast_inputs",
+   "fieldtype": "Section Break",
+   "label": "Forecast Inputs"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shifts_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "balance_costs",
+   "fieldtype": "Currency",
+   "label": "Costs",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_balance",
+   "fieldtype": "Section Break",
+   "label": "Balance Sheet"
+  },
+  {
+   "fieldname": "forecast_head_data",
+   "fieldtype": "Heading",
+   "label": "Data"
+  },
+  {
+   "fieldname": "forecast_effective_entrance",
+   "fieldtype": "Currency",
+   "label": "Effective Entrance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_break_even",
+   "fieldtype": "Int",
+   "label": "Break Even",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_head_costs",
+   "fieldtype": "Heading",
+   "label": "Costs"
+  },
+  {
+   "fieldname": "forecast_costs_booking",
+   "fieldtype": "Currency",
+   "label": "Booking",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_costs_venue",
+   "fieldtype": "Currency",
+   "label": "Venue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_costs_staff",
+   "fieldtype": "Currency",
+   "label": "Staff",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_costs_drinks",
+   "fieldtype": "Currency",
+   "label": "Drinks",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_head_revenue",
+   "fieldtype": "Heading",
+   "label": "Revenue"
+  },
+  {
+   "fieldname": "forecast_revenue_entrance",
+   "fieldtype": "Currency",
+   "label": "Entrance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_revenue_bar",
+   "fieldtype": "Currency",
+   "label": "Bar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "forecast_head_balance",
+   "fieldtype": "Heading",
+   "label": "Balance"
+  },
+  {
+   "fieldname": "forecast_balance_costs",
+   "fieldtype": "Currency",
+   "label": "Costs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_balance_revenues",
+   "fieldtype": "Currency",
+   "label": "Revenues",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "forecast_balance_total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_bar_per_capita",
+   "fieldtype": "Currency",
+   "label": "Bar per Capita",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_head_costs",
+   "fieldtype": "Heading",
+   "label": "Costs"
+  },
+  {
+   "fieldname": "balance_costs_booking",
+   "fieldtype": "Currency",
+   "label": "Booking",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_costs_drinks",
+   "fieldtype": "Currency",
+   "label": "Drinks",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_costs_staff",
+   "fieldtype": "Currency",
+   "label": "Staff",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_head_revenue",
+   "fieldtype": "Heading",
+   "label": "Revenue"
+  },
+  {
+   "fieldname": "balance_revenue_entrance",
+   "fieldtype": "Currency",
+   "label": "Entrance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_revenue_bar",
+   "fieldtype": "Currency",
+   "label": "Bar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "balance_head_balance",
+   "fieldtype": "Heading",
+   "label": "Balance"
+  },
+  {
+   "fieldname": "balance_revenue",
+   "fieldtype": "Currency",
+   "label": "Revenue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_head_user",
+   "fieldtype": "Heading",
+   "label": "General"
+  },
+  {
+   "fieldname": "forecast_estimated_guests",
+   "fieldtype": "Int",
+   "label": "Estimated guests"
+  },
+  {
+   "fieldname": "forecast_head_parameters",
+   "fieldtype": "Heading",
+   "label": "Parameters"
+  },
+  {
+   "fieldname": "forecast_load_parameter_template",
+   "fieldtype": "Button",
+   "label": "Load Parameter Template"
+  },
+  {
+   "fieldname": "forecast_booking_factor",
+   "fieldtype": "Float",
+   "label": "Booking Factor"
+  },
+  {
+   "fieldname": "forecast_bar_per_capita",
+   "fieldtype": "Currency",
+   "label": "Bar per capita"
+  },
+  {
+   "fieldname": "forecast_margin",
+   "fieldtype": "Float",
+   "label": "Margin"
+  },
+  {
+   "default": "0",
+   "fieldname": "forecast_include_heating",
+   "fieldtype": "Check",
+   "label": "Include heating"
+  },
+  {
+   "fieldname": "forecast_head_shifts",
+   "fieldtype": "Heading",
+   "label": "Shifts"
+  },
+  {
+   "default": "false",
+   "fieldname": "forecast_use_shift_plan",
+   "fieldtype": "Check",
+   "label": "Use Actual Shift Plan"
+  },
+  {
+   "depends_on": "eval:!doc.use_shift_plan",
+   "fieldname": "forecast_shift_template",
+   "fieldtype": "Link",
+   "label": "Shift Template",
+   "options": "Shift Template"
+  },
+  {
+   "fieldname": "column_break_48",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_54",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_58",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "balance_head_data",
+   "fieldtype": "Heading",
+   "label": "Data"
+  },
+  {
+   "fieldname": "entrance_purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order",
+   "read_only": 1
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [
   {
+   "group": "Costs",
    "link_doctype": "Shift",
    "link_fieldname": "event"
   },
   {
+   "group": "Costs",
    "link_doctype": "Booking",
    "link_fieldname": "event"
   },
   {
+   "group": "Costs",
+   "link_doctype": "Renting Costs",
+   "link_fieldname": "event"
+  },
+  {
+   "group": "Costs",
+   "link_doctype": "Promo Cost",
+   "link_fieldname": "event"
+  },
+  {
+   "group": "Costs",
+   "link_doctype": "Kitchen Cost",
+   "link_fieldname": "event"
+  },
+  {
+   "custom": 1,
+   "group": "Costs",
+   "link_doctype": "Uncategorized Cost",
+   "link_fieldname": "event"
+  },
+  {
+   "group": "Event",
    "link_doctype": "Guestlist",
+   "link_fieldname": "event"
+  },
+  {
+   "group": "Finances",
+   "link_doctype": "Purchase Order",
+   "link_fieldname": "event"
+  },
+  {
+   "group": "Finances",
+   "link_doctype": "Sales Order",
    "link_fieldname": "event"
   }
  ],
- "modified": "2021-05-23 15:06:17.093216",
+ "modified": "2021-07-11 20:10:46.710929",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Club Event",

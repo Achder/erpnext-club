@@ -1,0 +1,48 @@
+{
+ "actions": [
+  {
+   "action": "club.club.doctype.ready2order.ready2order.import_products",
+   "action_type": "Server Action",
+   "label": "Import"
+  }
+ ],
+ "creation": "2021-08-22 17:32:18.036453",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "user_token"
+ ],
+ "fields": [
+  {
+   "fieldname": "user_token",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "User API Token",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2021-09-07 21:05:35.586304",
+ "modified_by": "Administrator",
+ "module": "Club",
+ "name": "Ready2Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

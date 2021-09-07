@@ -2,7 +2,21 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Booking', {
-	// refresh: function(frm) {
-
-	// }
+	setup: (frm) => {
+		frm.set_query("artist", () => ({
+			filters: [
+				["supplier_group", "like", "Artist"]
+			]
+		}))
+		frm.set_query("booker", () => ({
+			filters: [
+				["supplier_group", "like", "Booker"]
+			]
+		}))
+		frm.set_query("hotel", () => ({
+			filters: [
+				["supplier_group", "like", "Hotel"]
+			]
+		}))
+	},
 });
