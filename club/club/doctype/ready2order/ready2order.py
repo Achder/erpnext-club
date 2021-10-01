@@ -10,37 +10,107 @@ import requests
 class Ready2Order(Document):
 	pass
 
+def create_customer():
+	if not frappe.db.exists('Customer', 'Ready2Order'):
+		customer_doc = frappe.get_doc({
+			'doctype': 'Customer',
+			'customer_name': 'Ready2Order'
+		})
+		customer_doc.insert()
+
+def create_missing_product_group(group_name):
+	if not frappe.db.exists('Item Group', group_name):
+		group_doc = frappe.get_doc({
+			'doctype': 'Item Group',
+			'item_group_name': group_name,
+			'parent_item_group': 'All Item Groups'
+		})
+		group_doc.insert()
+
+def create_missing_product(item):
+
+	group_name = item["productgroup_name"]
+	create_missing_product_group(group_name)
+
+	# create products
+	id = item['product_id']
+	name = item['item_name']
+	price = item['item_price']
+
+	if not frappe.db.exists('Item', id):
+		item_doc = frappe.get_doc({
+			'doctype': 'Item',
+			'item_code': str(id),
+			'item_name': name,
+			'item_group': group_name
+		})
+		item_doc.insert()
+
+		item_price_doc = frappe.get_doc({
+			'doctype': 'Item Price',
+			'item_code': str(id),
+			'price_list': 'Standard Selling',
+			'price_list_rate': price
+		})
+		item_price_doc.insert()
+		print('Created price')
+
+def create_sales_invoice_items(items):
+
+	invoice_items = []
+
+	for item in items:
+
+		id = item['product_id']
+		qty = item['item_qty']
+		price = item['item_price']
+
+		create_missing_product(item)
+		invoice_items.append(frappe.get_doc({
+			'doctype': 'Sales Invoice Item',
+			'item_code': id,
+			'qty': qty,
+			'rate': price,
+			'income_account': '8400 - Erlöse USt. 19% - OKA'
+		}))
+
+	return invoice_items
+
+def get_invoices(token):
+	headers = {"Authorization": "Bearer " + token}
+	response = requests.get('https://api.ready2order.com/v1/document/invoice?items=true&discounts=true&limit=10&offset=20', headers=headers).json()
+	return response['invoices']
+
 @frappe.whitelist()
 def import_products():
 	r2o_doc = frappe.get_single('Ready2Order')
 	api_token = r2o_doc.user_token
-	headers = {"Authorization": "Bearer " + api_token}
-	products = requests.get('https://api.ready2order.com/v1/products?includeProductVariations=true&includeProductGroup=true', headers=headers).json()
 
-	for product in products:
-		print("--------------------------")
-		print(product["product_name"])
-		print(product["product_price"])
-		print(product["product_vat"])
-		print(product["product_active"])
+	create_customer()
 
-		# product_type_id: product_type
-		#		none: regular product
-		# 	5: 		variation
-		#		19: 	deposit sale
-		print(product["product_type"])
-		print(product["product_type_id"])
-		
-		print(product["productgroup"]["productgroup_name"])
-		
-		if "productvariation" in product:
-			print(product["productvariation"])
+	for invoice in get_invoices(api_token):
 
-		# TODO
-		#		check if product group exists
-		#		create product group if not exists
-		#
-		# 	check if product exists
-		#	 	create product if not exists
-		#
-		#		create price
+		deliveryDate = invoice['invoice_deliveryDate']
+		paidDate = invoice['invoice_paidDate']
+		items = invoice['items']
+		discounts = invoice['discounts']
+		invoice_items = create_sales_invoice_items(items)
+
+		invoice_doc = frappe.get_doc({
+			'doctype': 'Sales Invoice',
+			'customer': 'Ready2Order',
+			'posting_date': deliveryDate,
+			'posting_time': deliveryDate,
+			'set_posting_time': True,
+			'due_date': paidDate,
+			'items': invoice_items
+		})
+
+		if discounts:
+			discount_value = discounts[0]['billDiscount_value'] * -1
+			invoice_doc.additional_discount_amount = discount_value
+
+		try: 
+			invoice_doc.insert()
+		except Exception as e:
+			print(str(e))

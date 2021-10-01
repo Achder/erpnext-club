@@ -115,14 +115,14 @@ def create_booking_purchase_orders(event):
 		po_docs.append(
 			create_po(
 				supplier=booking_doc.artist,
-					items=[
-						create_poi(
-							item_code='artist_fee', 
-							qty=1, 
-							rate=booking_doc.artist_fee
-						)
-					],
-					event=event['name']
+				items=[
+					create_poi(
+						item_code='artist_fee', 
+						qty=1, 
+						rate=booking_doc.artist_fee
+					)
+				],
+				event=event['name']
 			)
 		)
 
@@ -172,14 +172,14 @@ def create_renting_purchase_orders(event):
 		renting_doc = frappe.get_doc('Renting Costs', renting['name'])
 		po_doc = create_po(
 			supplier=renting_doc.supplier,
-				items=[
-					create_poi(
-						item_code=renting_doc.item, 
-						qty=1, 
-						rate=renting_doc.cost
-					)
-				],
-				event=event['name']
+			items=[
+				create_poi(
+					item_code=renting_doc.item, 
+					qty=1, 
+					rate=renting_doc.cost
+				)
+			],
+			event=event['name']
 		)
 
 		po_doc.insert()
@@ -197,14 +197,14 @@ def create_promo_purchase_orders(event):
 		promo_doc = frappe.get_doc('Promo Costs', promo['name'])
 		po_doc = create_po(
 			supplier=promo_doc.supplier,
-				items=[
-					create_poi(
-						item_code=promo_doc.item, 
-						qty=1, 
-						rate=promo_doc.cost
-					)
-				],
-				event=event['name']
+			items=[
+				create_poi(
+					item_code=promo_doc.item, 
+					qty=1, 
+					rate=promo_doc.cost
+				)
+			],
+			event=event['name']
 		)
 
 		po_doc.insert()
@@ -222,14 +222,14 @@ def create_kitchen_purchase_orders(event):
 		kitchen_doc = frappe.get_doc('Kitchen Costs', kitchen['name'])
 		po_doc = create_po(
 			supplier=kitchen_doc.supplier,
-				items=[
-					create_poi(
-						item_code=kitchen_doc.item, 
-						qty=1, 
-						rate=kitchen_doc.cost
-					)
-				],
-				event=event['name']
+			items=[
+				create_poi(
+					item_code=kitchen_doc.item, 
+					qty=1, 
+					rate=kitchen_doc.cost
+				)
+			],
+			event=event['name']
 		)
 
 		po_doc.insert()
@@ -247,14 +247,14 @@ def create_uncategorized_purchase_orders(event):
 		uncategorized_doc = frappe.get_doc('Uncategorized Costs', uncategorized['name'])
 		po_doc = create_po(
 			supplier=uncategorized_doc.supplier,
-				items=[
-					create_poi(
-						item_code=uncategorized_doc.item, 
-						qty=1, 
-						rate=uncategorized_doc.cost
-					)
-				],
-				event=event['name']
+			items=[
+				create_poi(
+					item_code=uncategorized_doc.item, 
+					qty=1, 
+					rate=uncategorized_doc.cost
+				)
+			],
+			event=event['name']
 		)
 
 		po_doc.insert()
