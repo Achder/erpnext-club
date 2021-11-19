@@ -10,6 +10,76 @@ import requests
 class Ready2Order(Document):
 	pass
 
+def get_invoices(from_date, to_date):
+	r2o_doc = frappe.get_single('Ready2Order')
+	api_token = r2o_doc.user_token
+	invoices_all = []
+
+	limit = 100
+	offset = 0
+	invoices = request(api_token, from_date, to_date, limit, offset)
+	
+	while invoices:
+		invoices_all = invoices_all + invoices
+		offset += limit
+		invoices = request(api_token, from_date, to_date, limit, offset)
+
+	return invoices_all
+
+def request(token, from_date, to_date, limit, offset):
+	headers = {"Authorization": "Bearer " + token}
+	base = 'https://api.ready2order.com/v1/document/invoice'
+	url = base + '?' + 'limit=' + str(limit) + '&offset=' + str(offset) + '&items=true&discounts=true&dateFrom=' + from_date + '&dateTo=' + to_date
+	response = requests.get(url, headers=headers).json()['invoices']
+	return response 
+
+@frappe.whitelist()
+def import_products(from_date, to_date, link_to):
+
+	create_customer()
+
+	invoice_docs = []
+	invoices = get_invoices(from_date, to_date)
+
+	for invoice in invoices:
+
+		deliveryDate = invoice['invoice_deliveryDate']
+		paidDate = invoice['invoice_paidDate']
+		invoice_id = invoice['invoice_numberFull']
+		items = invoice['items']
+		discounts = invoice['discounts']
+		invoice_items = create_sales_invoice_items(items)
+
+		if invoice_items:
+			invoice_doc = frappe.get_doc({
+				'doctype': 'Sales Invoice',
+				'name': invoice_id,
+				'naming_series': 'RG.YYYY./.#####',
+				'customer': 'Ready2Order',
+				'posting_date': deliveryDate,
+				'posting_time': deliveryDate,
+				'set_posting_time': True,
+				'due_date': paidDate,
+				'items': invoice_items,
+				'event': link_to
+			})
+
+			if discounts:
+				discount_value = discounts[0]['billDiscount_percent'] * -1
+				invoice_doc.additional_discount_percent = discount_value
+
+			invoice_docs.append(invoice_doc)
+
+	print('Inserting ' + str(len(invoice_docs)) + ' invoices.')
+
+	for doc in invoice_docs:
+			try: 
+				doc.insert()
+			except Exception as e:
+				print(str(e))
+
+	frappe.msgprint(msg='Invoices imported.', title='Done')
+
 def create_customer():
 	if not frappe.db.exists('Customer', 'Ready2Order'):
 		customer_doc = frappe.get_doc({
@@ -76,41 +146,23 @@ def create_sales_invoice_items(items):
 
 	return invoice_items
 
-def get_invoices(token):
-	headers = {"Authorization": "Bearer " + token}
-	response = requests.get('https://api.ready2order.com/v1/document/invoice?items=true&discounts=true&limit=10&offset=20', headers=headers).json()
-	return response['invoices']
+def create_sales_return_items(items):
 
-@frappe.whitelist()
-def import_products():
-	r2o_doc = frappe.get_single('Ready2Order')
-	api_token = r2o_doc.user_token
+	invoice_items = []
 
-	create_customer()
+	for item in items:
 
-	for invoice in get_invoices(api_token):
+		id = item['product_id']
+		qty = item['item_qty']
+		price = item['item_price']
 
-		deliveryDate = invoice['invoice_deliveryDate']
-		paidDate = invoice['invoice_paidDate']
-		items = invoice['items']
-		discounts = invoice['discounts']
-		invoice_items = create_sales_invoice_items(items)
+		if price < 0:
+			create_missing_product(item)
+			invoice_items.append(frappe.get_doc({
+				'doctype': 'Sales Invoice Item',
+				'item_code': id,
+				'qty': -qty,
+				'rate': -price
+			}))
 
-		invoice_doc = frappe.get_doc({
-			'doctype': 'Sales Invoice',
-			'customer': 'Ready2Order',
-			'posting_date': deliveryDate,
-			'posting_time': deliveryDate,
-			'set_posting_time': True,
-			'due_date': paidDate,
-			'items': invoice_items
-		})
-
-		if discounts:
-			discount_value = discounts[0]['billDiscount_value'] * -1
-			invoice_doc.additional_discount_amount = discount_value
-
-		try: 
-			invoice_doc.insert()
-		except Exception as e:
-			print(str(e))
+	return invoice_items

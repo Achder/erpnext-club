@@ -11,6 +11,12 @@
    "action_type": "Server Action",
    "group": "Create",
    "label": "Entrance Orders"
+  },
+  {
+   "action": "club.club.doctype.club_event.club_event.import_pos",
+   "action_type": "Server Action",
+   "group": "Import",
+   "label": "Import POS"
   }
  ],
  "autoname": "format:{start}-{event_name}",
@@ -67,6 +73,7 @@
   "forecast_balance_total",
   "sec_balance",
   "balance_head_data",
+  "balance_actual_guests",
   "balance_bar_per_capita",
   "column_break_48",
   "balance_head_costs",
@@ -437,6 +444,12 @@
    "label": "Purchase Order",
    "options": "Purchase Order",
    "read_only": 1
+  },
+  {
+   "fieldname": "balance_actual_guests",
+   "fieldtype": "Int",
+   "label": "Actual Guests",
+   "read_only": 1
   }
  ],
  "image_field": "image",
@@ -489,7 +502,7 @@
    "link_fieldname": "event"
   }
  ],
- "modified": "2021-07-11 20:10:46.710929",
+ "modified": "2021-12-08 23:35:32.619643",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Club Event",

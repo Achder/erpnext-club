@@ -1,34 +1,29 @@
 {
  "actions": [],
- "creation": "2021-05-16 23:46:26.646668",
+ "autoname": "field:group_name",
+ "creation": "2021-12-08 19:44:15.811656",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "start",
-  "price"
+  "group_name"
  ],
  "fields": [
   {
-   "fieldname": "start",
-   "fieldtype": "Datetime",
+   "fieldname": "group_name",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Start"
-  },
-  {
-   "fieldname": "price",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Price"
+   "label": "Group Name",
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-12-08 23:32:00.995333",
+ "modified": "2021-12-08 19:47:44.736565",
  "modified_by": "Administrator",
  "module": "Club",
- "name": "Entrance",
+ "name": "Ready2Order Item Group",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

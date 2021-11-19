@@ -11,7 +11,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "user_token"
+  "user_token",
+  "bar_groups",
+  "entrance_groups"
  ],
  "fields": [
   {
@@ -20,12 +22,26 @@
    "in_list_view": 1,
    "label": "User API Token",
    "reqd": 1
+  },
+  {
+   "fieldname": "bar_groups",
+   "fieldtype": "Table",
+   "label": "Bar Groups",
+   "options": "Ready2Order Item Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "entrance_groups",
+   "fieldtype": "Table",
+   "label": "Entrance Groups",
+   "options": "Ready2Order Item Group",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-09-07 21:05:35.586304",
+ "modified": "2021-12-08 19:45:17.514860",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Ready2Order",

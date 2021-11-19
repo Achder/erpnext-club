@@ -45,6 +45,15 @@ def create_sales_orders(doc):
     title='Created'
 	)
 
+@frappe.whitelist()
+def import_pos(doc):
+	event = json.loads(doc)
+	name = event["name"]
+	start = event["start"]
+	end = event["end"]
+	frappe.call('club.club.doctype.ready2order.ready2order.import_products', start, end, name)
+	return doc
+
 def create_entrance_sales_orders(event):
 
 	entrances = event['entrances']
@@ -297,3 +306,48 @@ def get_events(start, end):
 		"start": start,
 		"end": end
 	}, as_dict=True)
+
+@frappe.whitelist()
+def get_entrance_sales(event):
+	r2o_doc = frappe.get_single('Ready2Order')
+	entrance_groups = r2o_doc.entrance_groups
+
+	return frappe.db.sql(f"""
+		SELECT
+			SUM(item.qty * item.rate) AS amount
+    FROM `tabSales Invoice` invoice
+        INNER JOIN `tabSales Invoice Item` item
+        ON invoice.name = item.parent
+    WHERE item.item_group IN ({', '.join(f"'{g.group_name}'" for g in entrance_groups)})
+			AND invoice.event = '{event}'
+	""")
+
+@frappe.whitelist()
+def count_entrances(event):
+	r2o_doc = frappe.get_single('Ready2Order')
+	entrance_groups = r2o_doc.entrance_groups
+
+	return frappe.db.sql(f"""
+		SELECT
+			SUM(item.qty)
+    FROM `tabSales Invoice` invoice
+        INNER JOIN `tabSales Invoice Item` item
+        ON invoice.name = item.parent
+    WHERE item.item_group IN ({', '.join(f"'{g.group_name}'" for g in entrance_groups)})
+			AND invoice.event = '{event}'
+	""")
+
+@frappe.whitelist()
+def get_bar_sales(event):
+	r2o_doc = frappe.get_single('Ready2Order')
+	bar_groups = r2o_doc.bar_groups
+
+	return frappe.db.sql(f"""
+		SELECT
+			SUM(item.qty * item.rate) AS amount
+    FROM `tabSales Invoice` invoice
+        INNER JOIN `tabSales Invoice Item` item
+        ON invoice.name = item.parent
+    WHERE item.item_group IN ({', '.join(f"'{g.group_name}'" for g in bar_groups)})
+			AND invoice.event = '{event}'
+	""")
