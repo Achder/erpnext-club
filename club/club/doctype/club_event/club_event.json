@@ -11,6 +11,12 @@
    "action_type": "Server Action",
    "group": "Create",
    "label": "Entrance Orders"
+  },
+  {
+   "action": "club.club.doctype.club_event.club_event.import_pos",
+   "action_type": "Server Action",
+   "group": "Import",
+   "label": "Import POS"
   }
  ],
  "autoname": "format:{start}-{event_name}",
@@ -489,7 +495,7 @@
    "link_fieldname": "event"
   }
  ],
- "modified": "2021-07-11 20:10:46.710929",
+ "modified": "2021-10-03 19:46:18.254561",
  "modified_by": "Administrator",
  "module": "Club",
  "name": "Club Event",

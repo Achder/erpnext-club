@@ -318,6 +318,10 @@ const set_parameter_template_values = async (frm, parameters) => {
 	frm.set_value('forecast_include_heating', include_heating)
 }
 
+frappe.realtime.on('msgprint', (data) => {
+	console.log(data)
+})
+
 frappe.ui.form.on('Club Event', {
 	setup: async (frm) => {
 		const default_forecast_parameters = await frappe.db.get_single_value('Default Forecast Parameters', 'forecast_parameters')
@@ -326,6 +330,11 @@ frappe.ui.form.on('Club Event', {
 	},
 
 	onload: async (frm) => {
+		console.log('Add msgprint listener')
+		frappe.realtime.on('msgprint', (data) => {
+			console.log(data)
+		})
+	
 		await forecast(frm)
 		await balance(frm)
 	},

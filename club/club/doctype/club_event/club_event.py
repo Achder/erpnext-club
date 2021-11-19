@@ -45,6 +45,14 @@ def create_sales_orders(doc):
     title='Created'
 	)
 
+@frappe.whitelist()
+def import_pos(doc):
+	event = json.loads(doc)
+	start = event["start"]
+	end = event["end"]
+	frappe.enqueue('club.club.doctype.ready2order.ready2order.import_products', from_date=start, to_date=end)
+	return doc
+
 def create_entrance_sales_orders(event):
 
 	entrances = event['entrances']
